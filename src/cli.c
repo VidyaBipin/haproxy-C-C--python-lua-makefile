@@ -651,7 +651,7 @@ int listeners_setenv(struct proxy *frontend, const char *varname)
 				if (trash->data)
 					chunk_appendf(trash, ";");
 
-				if (l->rx.addr.ss_family == AF_UNIX) {
+				if (l->rx.addr.ss_family == AF_UNIX || l->rx.addr.ss_family == AF_CUST_ABNS) {
 					const struct sockaddr_un *un;
 
 					un = (struct sockaddr_un *)&l->rx.addr;
@@ -1579,7 +1579,7 @@ static int cli_io_handler_show_cli_sock(struct appctx *appctx)
 			char addr[46];
 			char port[6];
 
-			if (l->rx.addr.ss_family == AF_UNIX) {
+			if (l->rx.addr.ss_family == AF_UNIX || l->rx.addr.ss_family == AF_CUST_ABNS) {
 				const struct sockaddr_un *un;
 
 				un = (struct sockaddr_un *)&l->rx.addr;
