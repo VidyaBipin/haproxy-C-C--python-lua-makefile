@@ -36,13 +36,17 @@ const struct proto_fam *__proto_fam_by_family[AF_CUST_MAX] = { };
  */
 __decl_spinlock(proto_lock);
 
-/* Registers the protocol <proto> */
+/* Registers the protocol <proto>. Its <receivers> list head will be
+ * initialized.
+ */
 void protocol_register(struct protocol *proto)
 {
 	int sock_family = proto->fam->sock_family;
 
 	BUG_ON(sock_family < 0 || sock_family >= AF_CUST_MAX);
 	BUG_ON(proto->proto_type >= PROTO_NUM_TYPES);
+
+	LIST_INIT(&proto->receivers);
 
 	HA_SPIN_LOCK(PROTO_LOCK, &proto_lock);
 	LIST_APPEND(&protocols, &proto->list);
