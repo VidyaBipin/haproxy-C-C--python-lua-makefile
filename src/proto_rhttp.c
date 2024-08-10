@@ -50,7 +50,6 @@ struct protocol proto_rhttp = {
 	.sock_type      = SOCK_STREAM,
 	.sock_prot      = IPPROTO_TCP,
 	.rx_listening   = rhttp_accepting_conn,
-	.receivers      = LIST_HEAD_INIT(proto_rhttp.receivers),
 };
 
 static struct connection *new_reverse_conn(struct listener *l, struct server *srv)

@@ -63,7 +63,6 @@ struct protocol proto_uxdg = {
 	.rx_enable      = sock_enable,
 	.rx_disable     = sock_disable,
 	.rx_unbind      = sock_unbind,
-	.receivers      = LIST_HEAD_INIT(proto_uxdg.receivers),
 	.nb_receivers   = 0,
 };
 
